@@ -1,0 +1,80 @@
+{
+  "name": "treent",
+  "version": "1.0.1",
+  "description": "Organizador visual de tarefas, notas e eventos em forma de árvore.",
+  "main": "main.js",
+  "author": {
+    "name": "Seu Nome",
+    "email": "seuemail@exemplo.com"
+  },
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "scripts": {
+    "start":          "electron .",
+    "dev":            "electron . --enable-logging",
+    "build:win":      "electron-builder --win",
+    "build:linux":    "electron-builder --linux",
+    "build:all":      "electron-builder --win nsis portable zip"
+  },
+  "devDependencies": {
+    "electron":         "^42.3.2",
+    "electron-builder": "^26.8.1"
+  },
+  "build": {
+    "appId":       "com.treent.app",
+    "productName": "TreeNT",
+    "copyright":   "Copyright © 2025 — Licença GPL-3.0",
+
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**",
+      "assets/**",
+      "LICENSE"
+    ],
+
+    "directories": {
+      "buildResources": "assets",
+      "output":         "dist"
+    },
+
+    "publish": null,
+
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        { "target": "nsis",     "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] },
+        { "target": "zip",      "arch": ["x64"] }
+      ]
+    },
+
+    "nsis": {
+      "oneClick":                           false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut":              true,
+      "createStartMenuShortcut":            true,
+      "shortcutName":                       "TreeNT",
+      "runAfterFinish":                     true,
+      "artifactName":                       "TreeNT-Setup-${version}.${ext}"
+    },
+
+    "portable": {
+      "artifactName": "TreeNT-Portable-${version}.${ext}"
+    },
+
+    "linux": {
+      "target":    ["AppImage"],
+      "icon":      "assets/icon.png",
+      "category":  "Utility",
+      "artifactName": "TreeNT-${version}-linux.${ext}"
+    },
+
+    "mac": {
+      "target":    [{ "target": "dmg", "arch": ["x64", "arm64"] }],
+      "icon":      "assets/icon.icns",
+      "category":  "public.app-category.productivity",
+      "artifactName": "TreeNT-${version}-mac.${ext}"
+    }
+  }
+}
